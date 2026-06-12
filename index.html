@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>COCONAT — Cosmétiques Naturels du Sénégal</title>
+  
+  <!-- 📸 ICÔNE DU SITE (Favicon) - Ajouter votre favicon ici -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -432,6 +436,7 @@
     }
     .form-group textarea { resize: vertical; font-family: 'Inter', sans-serif; }
     .contact-form button { margin-top: 8px; }
+    .form-message { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500; }
 
     /* ── RESPONSIVE CONTACT ── */
     @media (max-width: 1024px) {
@@ -469,11 +474,48 @@
       .section-title { font-size: 36px; }
     }
     @media (max-width: 480px) {
+      nav { padding: 12px 16px; }
+      .nav-logo { font-size: 18px; letter-spacing: 4px; }
+      .nav-cta { padding: 8px 16px; font-size: 9px; }
+      
       .hero-title { font-size: 36px; }
-      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-eyebrow { font-size: 12px; margin-bottom: 16px; }
+      .hero-sub { font-size: 16px; }
+      .hero-left { padding: 80px 16px 60px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
+      .btn-primary, .btn-ghost { width: 100%; padding: 14px 20px; font-size: 11px; }
+      .hero-right { min-height: 300px; }
+      
       .products-grid { grid-template-columns: 1fr; }
+      .products-section { padding: 60px 16px; }
+      .section-title { font-size: 32px; }
+      
       .values-grid { grid-template-columns: 1fr; }
-      .featured-stats { flex-direction: column; gap: 20px; }
+      .values-section { padding: 60px 16px; }
+      
+      .contact-section { padding: 60px 16px; }
+      .contact-container { gap: 32px; }
+      .contact-form { padding: 24px 16px; }
+      .form-group input, .form-group textarea { padding: 12px; font-size: 13px; }
+      
+      .featured-stats { flex-direction: column; gap: 16px; }
+      .featured-content { padding: 40px 16px; }
+      .featured-content .section-title { font-size: 28px; }
+      
+      .footer-top { grid-template-columns: 1fr; gap: 24px; }
+      footer { padding: 40px 16px 20px; }
+      
+      .info-item { gap: 12px; }
+      .info-icon { width: 40px; height: 40px; font-size: 24px; }
+      .info-content a, .info-content p { font-size: 14px; }
+    }
+    @media (max-width: 380px) {
+      .nav-logo { font-size: 16px; }
+      .hero-title { font-size: 28px; }
+      .hero-sub { font-size: 14px; }
+      .hero-eyebrow { font-size: 10px; }
+      .section-title { font-size: 28px; }
+      .featured-content .section-title { font-size: 24px; }
     }
   </style>
 </head>
@@ -614,7 +656,7 @@
     <div class="featured-visual">
       <div class="featured-bg-text">COCO</div>
       <!-- 📸 IMAGE BOUTEILLE PREMIUM - FEATURED -->
-      <img src="image4.jpeg" alt="Coconat Gold">
+      <img src="coco.png" alt="Coconat Gold">
     </div>
     <div class="featured-content">
       <span class="section-label">Notre mission</span>
@@ -701,28 +743,37 @@
         </div>
       </div>
       
-      <form class="contact-form" id="contactForm">
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms Access Key -->
+        <input type="hidden" name="access_key" value="a741136d-b23e-4891-a8b4-c6f4f8210215">
+        <!-- Email de destination pour tests -->
+        <input type="hidden" name="email" value="ibnouthiam69@gmail.com">
+        <!-- Message de succès -->
+        <input type="hidden" name="subject" value="Nouveau message de contact COCONAT">
+        <input type="hidden" name="from_name" value="COCONAT Contact Form">
+        
         <div class="form-group">
-          <input type="text" placeholder="Votre nom" required>
+          <input type="text" name="name" placeholder="Votre nom" required>
         </div>
         
         <div class="form-group">
-          <input type="email" placeholder="Votre email" required>
+          <input type="email" name="email_visitor" placeholder="Votre email" required>
         </div>
         
         <div class="form-group">
-          <input type="tel" placeholder="Votre téléphone" required>
+          <input type="tel" name="phone" placeholder="Votre téléphone" required>
         </div>
         
         <div class="form-group">
-          <input type="text" placeholder="Sujet">
+          <input type="text" name="subject_visitor" placeholder="Sujet">
         </div>
         
         <div class="form-group">
-          <textarea placeholder="Votre message" rows="5" required></textarea>
+          <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
         </div>
         
         <button type="submit" class="btn-primary" style="width: 100%;">Envoyer le message</button>
+        <p class="form-message" style="display: none; color: #4CAF50; margin-top: 16px; text-align: center; font-size: 14px;"></p>
       </form>
     </div>
   </section>
@@ -821,13 +872,54 @@
       }
     });
 
-    // Form submission
+    // Form submission with Web3Forms
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-      contactForm.addEventListener('submit', (e) => {
+      contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        alert('Merci pour votre message! Nous vous répondrons bientôt.');
-        contactForm.reset();
+        
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const formMessage = contactForm.querySelector('.form-message');
+        const originalText = submitBtn.textContent;
+        
+        // Changement du bouton pendant l'envoi
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+        
+        try {
+          const formData = new FormData(contactForm);
+          
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            // Succès
+            formMessage.style.display = 'block';
+            formMessage.style.color = '#4CAF50';
+            formMessage.textContent = '✓ Message envoyé avec succès! Nous vous répondrons très bientôt.';
+            contactForm.reset();
+            
+            // Réinitialiser après 3 secondes
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+              formMessage.style.display = 'none';
+            }, 3000);
+          } else {
+            throw new Error('Erreur lors de l\'envoi');
+          }
+        } catch (error) {
+          // Erreur
+          formMessage.style.display = 'block';
+          formMessage.style.color = '#f44336';
+          formMessage.textContent = '✗ Erreur lors de l\'envoi. Veuillez réessayer.';
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
       });
     }
     document.addEventListener('mousemove', (e) => {
