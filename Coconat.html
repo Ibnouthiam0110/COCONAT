@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COCONAT — Cosmétiques Naturels du Sénégal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --cream: #FAF7F2;
+      --forest: #8B6F47;
+      --gold: #C8A84B;
+      --charcoal: #1C1C1C;
+      --sand: #EDE5D8;
+      --olive: #A0826D;
+      --light-gold: #F5EDD8;
+      --brown-dark: #6B5344;
+      --brown-light: #D4BBA8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(200, 168, 75, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(200, 168, 75, 0.6); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 999;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 48px;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+      animation: fadeInDown 0.8s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; letter-spacing: 6px; color: var(--forest); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .nav-logo:hover { color: var(--gold); transform: scale(1.05); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { 
+      text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 2.5px; 
+      text-transform: uppercase; color: var(--charcoal); 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { 
+      background: var(--forest); color: white; padding: 10px 24px; font-size: 11px; 
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase; 
+      border: none; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+    .nav-cta:hover::before { left: 0; }
+    .nav-cta:hover { color: var(--brown-dark); }
+
+    /* ── HERO ── */
+    .hero { min-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--forest); overflow: hidden; position: relative; }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200, 168, 75, 0.1) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-left { display: flex; flex-direction: column; justify-content: flex-start; padding: 160px 64px 80px 64px; position: relative; z-index: 2; }
+    .hero-eyebrow { 
+      font-size: 15px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; 
+      color: var(--gold); margin-bottom: 28px; 
+      animation: fadeInLeft 0.8s ease 0.2s both;
+    }
+    .hero-title { 
+      font-family: 'Playfair Display', serif; font-size: 96px; line-height: 1.0; font-weight: 900; 
+      color: white; margin-bottom: 32px; 
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-sub { 
+      font-size: 20px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.65); 
+      max-width: 400px; margin-bottom: 48px; 
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+    .hero-actions { display: flex; gap: 16px; align-items: center; animation: fadeInUp 0.8s ease 0.8s both; }
+    .btn-primary { 
+      background: var(--gold); color: var(--brown-dark); padding: 18px 48px; font-size: 12px; 
+      font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; border: none; 
+      cursor: pointer; font-family: 'Inter', sans-serif; border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn-primary:hover::before { width: 300px; height: 300px; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(200, 168, 75, 0.3); }
+    .btn-ghost { 
+      background: transparent; color: white; padding: 18px 40px; font-size: 12px; font-weight: 600; 
+      letter-spacing: 2px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3); 
+      cursor: pointer; font-family: 'Inter', sans-serif; border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+    
+    .hero-right { position: relative; background: var(--olive); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-visual { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
+    .hero-circle-bg { 
+      position: absolute; width: 420px; height: 420px; border-radius: 50%; 
+      background: radial-gradient(circle, rgba(200,168,75,0.25) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    .hero-product-stack { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; z-index: 2; animation: scaleIn 0.8s ease 0.5s both; }
+    .hero-product-stack img { max-width: 300px; width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.4)); }
+    .hero-product-main {
+      width: 180px; height: 280px;
+      background: linear-gradient(160deg, #C0A080, #8B6F47);
+      border-radius: 90px 90px 70px 70px; position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 60px rgba(200, 168, 75, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero-product-main:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.5), 0 0 80px rgba(200, 168, 75, 0.35);
+    }
+    .hero-label { 
+      font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold); 
+      letter-spacing: 3px; text-align: center; font-weight: 700; text-transform: uppercase; 
+    }
+    .hero-product-accent {
+      position: absolute; top: 20px; right: -30px;
+      width: 80px; height: 120px;
+      background: linear-gradient(160deg, #c9a961, #a07830);
+      border-radius: 40px 40px 35px 35px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero-product-main:hover .hero-product-accent {
+      transform: translateX(10px) rotate(5deg);
+    }
+    .hero-drop-1 { position: absolute; bottom: 60px; left: 40px; width: 24px; height: 24px; border-radius: 50% 0 50% 50%; background: var(--gold); opacity: 0.6; transform: rotate(-45deg); animation: float 4s ease-in-out infinite; }
+    .hero-drop-2 { position: absolute; top: 80px; right: 50px; width: 16px; height: 16px; border-radius: 50% 0 50% 50%; background: rgba(255,255,255,0.2); transform: rotate(30deg); animation: float 5s ease-in-out infinite 0.5s; }
+    .hero-tag { position: absolute; bottom: 48px; right: 48px; background: white; padding: 14px 20px; max-width: 160px; border-radius: 4px; animation: fadeInRight 0.8s ease 0.6s both; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+    .hero-tag p { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--forest); margin-bottom: 4px; }
+    .hero-tag span { font-size: 12px; color: #888; }
+
+    /* ── TICKER ── */
+    .ticker { background: var(--gold); padding: 14px 0; overflow: hidden; display: flex; align-items: center; }
+    .ticker-inner { display: flex; gap: 64px; white-space: nowrap; animation: ticker 20s linear infinite; }
+    .ticker-item { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--brown-dark); display: flex; align-items: center; gap: 24px; }
+    .ticker-item::after { content: "✦"; font-size: 8px; color: rgba(0,0,0,0.3); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SHARED ── */
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--forest); line-height: 1.1; }
+
+    /* ── PRODUCTS ── */
+    .products-section { padding: 100px 48px; background: var(--cream); }
+    .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; }
+    .products-header .left p.sub { font-size: 15px; color: #888; margin-top: 12px; font-weight: 300; }
+    .view-all { 
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; 
+      color: var(--forest); text-decoration: none; border-bottom: 2px solid var(--forest); 
+      padding-bottom: 2px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .view-all:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .product-card { 
+      background: white; position: relative; overflow: hidden; cursor: pointer; 
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 4px;
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .product-card:hover .card-overlay { opacity: 1; }
+    .card-img { height: 320px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .card-img-cream { background: linear-gradient(135deg, #F0E8D8 0%, #E8DCC8 100%); }
+    .card-img-green { background: linear-gradient(135deg, #A0826D 0%, #8B6F47 100%); }
+    .card-img-dark { background: linear-gradient(135deg, #3C3C3C 0%, #2C2C2C 100%); }
+    .card-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+      opacity: 0; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-overlay span { 
+      color: white; font-size: 11px; font-weight: 700; letter-spacing: 2px; 
+      text-transform: uppercase; border: 1px solid white; padding: 10px 20px; 
+      border-radius: 2px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover .card-overlay span { 
+      border-color: var(--gold); color: var(--gold); 
+      transform: scale(1.1);
+    }
+    .card-body { padding: 20px 20px 24px; }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--forest); margin-bottom: 6px; }
+    .card-desc { font-size: 12px; color: #999; line-height: 1.6; margin-bottom: 12px; font-weight: 300; }
+    .card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; background: var(--light-gold); color: var(--olive); padding: 5px 10px; border-radius: 2px; }
+
+    /* product visuals */
+    .product-visual-oil { width: 90px; height: 140px; background: linear-gradient(180deg, #F9E8B0, #D4A017); border-radius: 45px 45px 30px 30px; box-shadow: inset 0 20px 30px rgba(255,255,255,0.3), 0 20px 40px rgba(0,0,0,0.1); }
+    .product-visual-lait { width: 100px; height: 130px; background: linear-gradient(180deg, #fff, #f0ebe3); border-radius: 50px 50px 30px 30px; box-shadow: inset 0 10px 20px rgba(255,255,255,0.8), 0 20px 40px rgba(0,0,0,0.08); border: 2px solid rgba(200,168,75,0.2); }
+    .product-visual-shampoo { width: 85px; height: 150px; background: linear-gradient(180deg, #A0826D, #6B5344); border-radius: 42px 42px 25px 25px; box-shadow: inset 0 10px 20px rgba(255,255,255,0.15), 0 20px 40px rgba(0,0,0,0.3); }
+    .product-visual-charcoal { width: 100px; height: 110px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .coal-block { background: #2C2C2C; border-radius: 4px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.05); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .product-card:hover .coal-block { transform: scale(1.05); }
+
+    /* ── FEATURED ── */
+    .featured { display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh; margin: 2px 0; }
+    .featured-visual { background: var(--olive); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 60px; }
+    .featured-visual img { width: 100%; height: 100%; object-fit: contain; object-position: center; max-width: 400px; }
+    .featured-bg-text { 
+      position: absolute; font-family: 'Playfair Display', serif; font-size: 200px; 
+      font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; top: 50%; 
+      transform: translateY(-50%); letter-spacing: -5px; white-space: nowrap; 
+    }
+    .featured-bottle {
+      width: 140px; height: 220px;
+      background: linear-gradient(160deg, #c9a961, #8a6520);
+      border-radius: 70px 70px 50px 50px; position: relative; z-index: 1;
+      box-shadow: 0 60px 80px rgba(0,0,0,0.4), 0 0 40px rgba(200, 168, 75, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      animation: float 4s ease-in-out infinite;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .featured-bottle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 70px 100px rgba(0,0,0,0.5), 0 0 60px rgba(200, 168, 75, 0.35);
+    }
+    .featured-bottle-text { 
+      font-family: 'Playfair Display', serif; font-size: 11px; font-weight: 900; 
+      color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; text-align: center; 
+    }
+    .featured-content { background: var(--forest); padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+    .featured-content .section-title { color: white; font-size: 42px; }
+    .featured-content p.body { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.9; margin: 24px 0 40px; font-weight: 300; }
+    .featured-stats { display: flex; gap: 40px; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 32px; }
+    .stat-num { 
+      font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; 
+      color: var(--gold); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+    /* ── VALUES ── */
+    .values-section { padding: 100px 48px; background: var(--sand); }
+    .values-section .section-title { text-align: center; }
+    .values-section .section-label { text-align: center; }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+    .value-card { 
+      background: white; padding: 40px 28px; border-radius: 4px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+    .value-card:nth-child(1) { animation-delay: 0.1s; }
+    .value-card:nth-child(2) { animation-delay: 0.2s; }
+    .value-card:nth-child(3) { animation-delay: 0.3s; }
+    .value-card:nth-child(4) { animation-delay: 0.4s; }
+    .value-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(0,0,0,0.12); }
+    .value-card.dark { background: var(--forest); }
+    .value-card.dark .value-num { color: var(--gold); }
+    .value-card.dark .value-title { color: white; }
+    .value-card.dark .value-text { color: rgba(255,255,255,0.55); }
+    .value-num { 
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; 
+      color: var(--sand); line-height: 1; margin-bottom: 20px; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .value-card:hover .value-num { transform: scale(1.1); }
+    .value-title { 
+      font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; 
+      color: var(--forest); margin-bottom: 12px; transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .value-card:hover .value-title { color: var(--gold); }
+    .value-text { font-size: 13px; color: #888; line-height: 1.7; font-weight: 300; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); padding: 80px 48px 32px; color: white; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; letter-spacing: 6px; color: white; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; max-width: 280px; font-weight: 300; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-col a { 
+      display: block; font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; 
+      margin-bottom: 10px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+      position: relative;
+    }
+    .footer-col a::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      top: 50%;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .footer-col a:hover::before { width: 8px; }
+    .footer-col a:hover { color: white; }
+    .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+    .social-btn { 
+      padding: 10px 16px; border: 1px solid rgba(255,255,255,0.15); font-size: 11px; 
+      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; 
+      color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      background: transparent; font-family: 'Inter', sans-serif; border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+    .social-btn:hover::before { transform: scaleX(1); }
+    .social-btn:hover { border-color: var(--gold); color: var(--brown-dark); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+    .footer-badge { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 6px 12px; border: 1px solid rgba(200,168,75,0.3); border-radius: 2px; }
+
+    /* ── CONTACT ── */
+    .contact-section { padding: 100px 48px; background: var(--cream); }
+    .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1400px; margin: 0 auto; }
+    .contact-left { display: flex; flex-direction: column; justify-content: center; }
+    .contact-left .section-title { margin-bottom: 16px; }
+    .contact-intro { font-size: 16px; color: #666; margin-bottom: 48px; line-height: 1.8; font-weight: 300; }
+    
+    .contact-info { display: flex; flex-direction: column; gap: 32px; margin-bottom: 40px; }
+    .info-item { display: flex; gap: 20px; align-items: flex-start; }
+    .info-icon { font-size: 32px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--light-gold); border-radius: 8px; }
+    .info-content { flex: 1; }
+    .info-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .info-content a { color: var(--forest); text-decoration: none; font-size: 16px; font-weight: 600; transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .info-content a:hover { color: var(--gold); }
+    .info-content p { color: var(--charcoal); font-size: 16px; font-weight: 600; }
+    
+    .contact-form { background: white; padding: 48px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); animation: fadeInUp 0.6s ease-out; }
+    .form-group { margin-bottom: 24px; }
+    .form-group input,
+    .form-group textarea { 
+      width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 6px; 
+      font-family: 'Inter', sans-serif; font-size: 14px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: white; color: var(--charcoal);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #999; }
+    .form-group input:focus,
+    .form-group textarea:focus { 
+      outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200, 168, 75, 0.1);
+    }
+    .form-group textarea { resize: vertical; font-family: 'Inter', sans-serif; }
+    .contact-form button { margin-top: 8px; }
+
+    /* ── RESPONSIVE CONTACT ── */
+    @media (max-width: 1024px) {
+      .contact-container { grid-template-columns: 1fr; gap: 60px; }
+    }
+    @media (max-width: 768px) {
+      .contact-section { padding: 60px 20px; }
+      .contact-container { gap: 40px; }
+      .contact-left .section-title { font-size: 36px; }
+      .contact-form { padding: 32px 20px; }
+    }
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 60px 24px; }
+      .hero-title { font-size: 44px; }
+      .hero-right { min-height: 400px; }
+      .hero-tag { display: none; }
+      .products-section { padding: 60px 20px; }
+      .products-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .featured { grid-template-columns: 1fr; }
+      .featured-content { padding: 48px 24px; }
+      .featured-content .section-title { font-size: 32px; }
+      .values-section { padding: 60px 20px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      footer { padding: 48px 20px 24px; }
+      .section-title { font-size: 36px; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 36px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .products-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .featured-stats { flex-direction: column; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <!-- 📸 LOGO - Ajouter votre logo ici -->
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <img src="image7.jpeg" alt="Logo Coconat" style="height: 60px; width: auto;">
+      <div class="nav-logo">COCONAT</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#products">Produits</a></li>
+      <li><a href="#values">Valeurs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Commander</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Made in Sénégal · 100% Naturel</p>
+      <h1 class="hero-title">La beauté<br>de la <span>noix de<br>coco.</span></h1>
+      <p class="hero-sub">Cosmétiques naturels fabriqués au Sénégal, transformant chaque noix de coco en un rituel de beauté pur et respectueux.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Découvrir la collection</button>
+        <button class="btn-ghost" onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">Notre histoire</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- 📸 IMAGE HERO COMPLÈTE -->
+      <img src="image5.jpeg" alt="Produits Coconat">
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Huile de Coco Pure</span>
+      <span class="ticker-item">Lait de Corps</span>
+      <span class="ticker-item">Shampooing Naturel</span>
+      <span class="ticker-item">Charbon Écologique</span>
+      <span class="ticker-item">Made in Sénégal</span>
+      <span class="ticker-item">100% Naturel</span>
+      <span class="ticker-item">Huile de Coco Pure</span>
+      <span class="ticker-item">Lait de Corps</span>
+      <span class="ticker-item">Shampooing Naturel</span>
+      <span class="ticker-item">Charbon Écologique</span>
+      <span class="ticker-item">Made in Sénégal</span>
+      <span class="ticker-item">100% Naturel</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="products-header">
+      <div class="left">
+        <span class="section-label">Notre collection</span>
+        <h2 class="section-title">Produits signatures</h2>
+        <p class="sub">Chaque produit, une promesse de pureté.</p>
+      </div>
+      <a class="view-all" href="#">Voir tout</a>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="card-img card-img-cream">
+          <!-- 📸 IMAGE PRODUIT 1 - Huile de Coco -->
+          <img src="image4.jpeg" alt="Huile de Coco">
+          <div class="card-overlay"><span>Découvrir</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Huile de Coco</div>
+          <p class="card-desc">Pure, polyvalente. Idéale pour la peau et les cheveux.</p>
+          <div class="card-tags">
+            <span class="tag">Pure</span>
+            <span class="tag">Biologique</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="card-img card-img-cream">
+          <!-- 📸 IMAGE PRODUIT 2 - Lait de Corps -->
+          <img src="image1.jpeg" alt="Lait de Corps">
+          <div class="card-overlay"><span>Découvrir</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Lait de Corps</div>
+          <p class="card-desc">Hydratant intense, enrichi à l'huile de coco naturelle.</p>
+          <div class="card-tags">
+            <span class="tag">Hydratant</span>
+            <span class="tag">Naturel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="card-img card-img-green">
+          <!-- 📸 IMAGE PRODUIT 3 - Shampooing -->
+          <img src="image3.jpeg" alt="Shampooing">
+          <div class="card-overlay"><span>Découvrir</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Shampooing</div>
+          <p class="card-desc">Fortifiant et nourrissant, pour des cheveux revitalisés.</p>
+          <div class="card-tags">
+            <span class="tag">Fortifiant</span>
+            <span class="tag">Doux</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="card-img card-img-dark">
+          <!-- 📸 IMAGE PRODUIT 4 - Charbon -->
+          <img src="image2.jpeg" alt="Charbon Écologique">
+          <div class="card-overlay"><span>Découvrir</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Charbon Écologique</div>
+          <p class="card-desc">100% coques de coco. Chicha & encens, longue durée.</p>
+          <div class="card-tags">
+            <span class="tag">Écologique</span>
+            <span class="tag">Durable</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURED / MISSION -->
+  <section class="featured" id="about-section">
+    <div class="featured-visual">
+      <div class="featured-bg-text">COCO</div>
+      <!-- 📸 IMAGE BOUTEILLE PREMIUM - FEATURED -->
+      <img src="image4.jpeg" alt="Coconat Gold">
+    </div>
+    <div class="featured-content">
+      <span class="section-label">Notre mission</span>
+      <h2 class="section-title">Zéro déchet,<br>100% valeur.</h2>
+      <p class="body">Chaque partie de la noix de coco est valorisée. La chair devient huile, lait, shampooing. La coque devient charbon écologique. Rien ne se perd, tout se transforme.</p>
+      <button class="btn-primary" style="align-self: flex-start;">En savoir plus</button>
+      <div class="featured-stats">
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Produits signatures</div>
+        </div>
+        <div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Produits chimiques</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Fabriqué au Sénégal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section" id="values">
+    <span class="section-label">Nos engagements</span>
+    <h2 class="section-title">Ce qui nous définit</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-num">01</div>
+        <div class="value-title">Naturel</div>
+        <p class="value-text">Ingrédients d'origine 100% naturelle, sans additifs ni produits chimiques agressifs pour votre peau.</p>
+      </div>
+      <div class="value-card dark">
+        <div class="value-num">02</div>
+        <div class="value-title">Sain</div>
+        <p class="value-text">Formulé pour le bien-être de votre peau et de vos cheveux. Doux pour toute la famille.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">03</div>
+        <div class="value-title">Écologique</div>
+        <p class="value-text">Processus de production respectueux de l'environnement, pour les générations futures.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">04</div>
+        <div class="value-title">Local</div>
+        <p class="value-text">Proudly Sénégalais. Nous promouvons la consommation locale et le développement durable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-section" id="contact-form">
+    <div class="contact-container">
+      <div class="contact-left">
+        <span class="section-label">Nous Contacter</span>
+        <h2 class="section-title">Parlons de votre beauté</h2>
+        <p class="contact-intro">Des questions? Nous sommes là pour vous aider. Remplissez le formulaire ou contactez-nous directement.</p>
+        
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div class="info-content">
+              <div class="info-label">Téléphone</div>
+              <a href="tel:+221123456789">+221 123 456 789</a>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div class="info-content">
+              <div class="info-label">Email</div>
+              <a href="mailto:contact@coconat.sn">contact@coconat.sn</a>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div class="info-content">
+              <div class="info-label">Localisation</div>
+              <p>Dakar, Sénégal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <input type="text" placeholder="Votre nom" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="email" placeholder="Votre email" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="tel" placeholder="Votre téléphone" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="text" placeholder="Sujet">
+        </div>
+        
+        <div class="form-group">
+          <textarea placeholder="Votre message" rows="5" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn-primary" style="width: 100%;">Envoyer le message</button>
+      </form>
+    </div>
+  </section>
+  <footer id="contact">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">COCONAT</div>
+        <p>Cosmétiques naturels du Sénégal. Transformant la noix de coco en produits de beauté purs et respectueux depuis Dakar.</p>
+        <div class="footer-social">
+          <button class="social-btn">Instagram</button>
+          <button class="social-btn">Facebook</button>
+          <button class="social-btn">WhatsApp</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Produits</h4>
+        <a href="#">Huile de Coco</a>
+        <a href="#">Lait de Corps</a>
+        <a href="#">Shampooing</a>
+        <a href="#">Charbon Écologique</a>
+      </div>
+      <div class="footer-col">
+        <h4>Marque</h4>
+        <a href="#">Notre histoire</a>
+        <a href="#">Nos valeurs</a>
+        <a href="#">Durabilité</a>
+        <a href="#">Presse</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="#">Nous contacter</a>
+        <a href="#">Commandes</a>
+        <a href="#">Distribution</a>
+        <a href="#">Sénégal</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 COCONAT. Tous droits réservés. Fabriqué au Sénégal avec passion.</p>
+      <div class="footer-badge">Made in Sénégal</div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // Scroll reveal with IntersectionObserver
+    const revealElements = document.querySelectorAll('.product-card, .value-card, .featured-content, .featured-visual');
+    const revealOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, revealOptions);
+
+    revealElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+      reveal.observe(el);
+    });
+
+    // Active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 200) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = current && a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+      });
+    });
+
+    // Parallax effect on hero
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero-right');
+      if (hero) {
+        hero.style.transform = `translateY(${window.scrollY * 0.5}px)`;
+      }
+    });
+
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Merci pour votre message! Nous vous répondrons bientôt.');
+        contactForm.reset();
+      });
+    }
+    document.addEventListener('mousemove', (e) => {
+      const buttons = document.querySelectorAll('.btn-primary, .btn-ghost, .nav-cta');
+      buttons.forEach(btn => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        btn.style.setProperty('--mouse-x', x + 'px');
+        btn.style.setProperty('--mouse-y', y + 'px');
+      });
+    });
+  </script>
+
+</body>
+</html>
