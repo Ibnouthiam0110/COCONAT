@@ -341,11 +341,11 @@
     .value-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(0,0,0,0.12); }
     .value-card.dark { background: var(--forest); }
     .value-card.dark .value-num { color: var(--gold); }
-    .value-card.dark .value-title { color: white; }
+    .value-card.dark .value-title { color: var(--gold); }
     .value-card.dark .value-text { color: rgba(255,255,255,0.55); }
-    .value-num { 
-      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; 
-      color: var(--sand); line-height: 1; margin-bottom: 20px; 
+    .value-num {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900;
+      color: rgba(139, 111, 71, 0.28); line-height: 1; margin-bottom: 20px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .value-card:hover .value-num { transform: scale(1.1); }
@@ -354,7 +354,7 @@
       color: var(--forest); margin-bottom: 12px; transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .value-card:hover .value-title { color: var(--gold); }
-    .value-text { font-size: 13px; color: #888; line-height: 1.7; font-weight: 300; }
+    .value-text { font-size: 13px; color: #555; line-height: 1.7; font-weight: 400; }
 
     /* ── FOOTER ── */
     footer { background: var(--charcoal); padding: 80px 48px 32px; color: white; }
